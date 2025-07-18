@@ -1,0 +1,103 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# PyTorch
+*.pth
+*.pt
+*.bin
+*.safetensors
+
+# Model files (too large for git)
+quantized_models/
+models/
+checkpoints/
+*.mp3
+*.wav
+*.flac
+*.ogg
+
+# Original Dia repository (cloned separately)
+dia/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# pytest
+.pytest_cache/
+.coverage
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Hugging Face cache
+.cache/
+transformers_cache/
+
+# Large files that shouldn't be in git
+*.zip
+*.tar.gz
+*.tar.bz2
+*.7z
+
+# Test outputs
+test_output.*
+output.*
+benchmark_results.*
+
+# uv lock file (optional - can be committed for reproducible builds)
+# uv.lock

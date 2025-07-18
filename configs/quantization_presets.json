@@ -1,0 +1,166 @@
+{
+  "presets": {
+    "ultra_low_vram": {
+      "description": "Optimized for 2-4GB VRAM hardware",
+      "method": "4bit",
+      "parameters": {
+        "quantization_type": "nf4",
+        "compute_dtype": "float16",
+        "double_quant": true
+      },
+      "expected_vram_mb": 2500,
+      "expected_quality": "Good (90-95% of original)",
+      "use_case": "Low-end GPUs, mobile devices"
+    },
+    
+    "balanced": {
+      "description": "Balance between quality and performance for 4-6GB VRAM",
+      "method": "bitsandbytes",
+      "parameters": {
+        "quantization_type": "nf4",
+        "compute_dtype": "bfloat16",
+        "double_quant": true
+      },
+      "expected_vram_mb": 3500,
+      "expected_quality": "Very Good (95-98% of original)",
+      "use_case": "Mid-range GPUs"
+    },
+    
+    "high_quality": {
+      "description": "High quality quantization for 6-8GB VRAM",
+      "method": "gptq",
+      "parameters": {
+        "group_size": 128,
+        "desc_act": false,
+        "static_groups": false
+      },
+      "expected_vram_mb": 4500,
+      "expected_quality": "Excellent (98-99% of original)",
+      "use_case": "High-end GPUs with quality priority"
+    },
+    
+    "cpu_optimized": {
+      "description": "Optimized for CPU inference",
+      "method": "dynamic",
+      "parameters": {
+        "dtype": "qint8"
+      },
+      "expected_ram_mb": 6000,
+      "expected_quality": "Excellent (99% of original)",
+      "use_case": "CPU-only systems, servers"
+    },
+    
+    "experimental_awq": {
+      "description": "Experimental AWQ quantization",
+      "method": "awq",
+      "parameters": {
+        "w_bit": 4,
+        "q_group_size": 128
+      },
+      "expected_vram_mb": 3000,
+      "expected_quality": "Very Good (95-97% of original)",
+      "use_case": "Research, experimentation"
+    }
+  },
+  
+  "hardware_recommendations": {
+    "rtx_3050_4gb": {
+      "recommended_preset": "ultra_low_vram",
+      "alternative_presets": ["balanced"],
+      "notes": "Use ultra_low_vram for best performance. May need CPU fallback for very long texts."
+    },
+    
+    "rtx_3060_8gb": {
+      "recommended_preset": "balanced",
+      "alternative_presets": ["high_quality", "ultra_low_vram"],
+      "notes": "Balanced preset provides good performance. High_quality works for shorter texts."
+    },
+    
+    "rtx_3070_8gb": {
+      "recommended_preset": "high_quality",
+      "alternative_presets": ["balanced"],
+      "notes": "Can handle high_quality preset comfortably for most use cases."
+    },
+    
+    "rtx_4060_8gb": {
+      "recommended_preset": "high_quality",
+      "alternative_presets": ["balanced"],
+      "notes": "Modern architecture handles quantized models efficiently."
+    },
+    
+    "cpu_only": {
+      "recommended_preset": "cpu_optimized",
+      "alternative_presets": ["ultra_low_vram"],
+      "notes": "CPU inference is slower but works without GPU. Consider using shorter texts."
+    }
+  },
+  
+  "generation_parameters": {
+    "fast": {
+      "description": "Fast generation with acceptable quality",
+      "max_tokens": 256,
+      "cfg_scale": 2.5,
+      "temperature": 1.0,
+      "top_p": 0.9,
+      "use_torch_compile": false
+    },
+    
+    "balanced": {
+      "description": "Balanced speed and quality",
+      "max_tokens": 512,
+      "cfg_scale": 3.0,
+      "temperature": 1.2,
+      "top_p": 0.95,
+      "use_torch_compile": false
+    },
+    
+    "high_quality": {
+      "description": "High quality generation (slower)",
+      "max_tokens": 1024,
+      "cfg_scale": 3.5,
+      "temperature": 1.3,
+      "top_p": 0.98,
+      "use_torch_compile": false
+    }
+  },
+  
+  "text_formatting": {
+    "speaker_tags": {
+      "description": "Use speaker tags to control voice characteristics",
+      "examples": [
+        "[S1] This is speaker 1 with a neutral voice.",
+        "[S2] This is speaker 2 with different characteristics.",
+        "[S3] This is speaker 3 for variety."
+      ],
+      "notes": "Speaker tags help control voice characteristics and add variety to longer texts."
+    },
+    
+    "punctuation": {
+      "description": "Proper punctuation improves prosody",
+      "tips": [
+        "Use periods for natural pauses",
+        "Use commas for shorter pauses",
+        "Use exclamation marks for emphasis",
+        "Use question marks for proper intonation"
+      ]
+    },
+    
+    "length_recommendations": {
+      "short": {
+        "max_chars": 100,
+        "description": "Single sentences, quick responses",
+        "optimal_for": "Real-time applications, chatbots"
+      },
+      "medium": {
+        "max_chars": 500,
+        "description": "Paragraphs, longer responses",
+        "optimal_for": "Voice assistants, narration"
+      },
+      "long": {
+        "max_chars": 2000,
+        "description": "Multiple paragraphs, articles",
+        "optimal_for": "Audiobook generation, long-form content"
+      }
+    }
+  }
+}
